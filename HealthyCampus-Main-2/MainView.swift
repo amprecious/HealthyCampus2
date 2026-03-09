@@ -8,147 +8,214 @@
 import SwiftUI
 
 struct MainView: View {
-    @State private var selectedIndex: Int = 0
-    @State private var isShowingStressorLog = false
-    let menuItems: [String] = ["Home", "Browse", "Search", "Profile", "Settings", "Notifications"]
-    
     var body: some View {
-        NavigationStack{
-            /*VStack{
-             HStack{
-             Text("Hello, World!")
-             .onAppear(){
-             print("MainView Showing")
-             }
-             .padding()
-             ZStack{
-             Rectangle()
-             .fill(Color.orange)
-             .frame(width:200, height: 100)
-             NavigationLink("Click Here to View Your Stressors", destination: StressorLogView())
-             }
-             /*Button("Click Here to View Your Stressors", systemImage: "pencil") {
-              print("Edit button was tapped")
-              
-              }*/
-             
-             }
-             }
-             }*/
+        ZStack(alignment: .bottom) {
+            // Background Color for the whole screen
+            Color(red: 0.95, green: 0.96, blue: 0.99)
+                .ignoresSafeArea()
             
-            ScrollView(.horizontal, showsIndicators: false) {
-                /*LazyHStack(spacing: 20) {
-                 ForEach(menuItems.indices, id: \.self) { index in
-                 Button(action: {
-                 selectedIndex = index
-                 }) {
-                 Text(menuItems[index])
-                 .padding(.vertical, 10)
-                 .padding(.horizontal, 15)
-                 .foregroundColor(selectedIndex == index ? .white : .primary)
-                 .background(selectedIndex == index ? Color.blue : Color.secondary.opacity(0.2))
-                 .cornerRadius(200)
-                 .clipShape(Circle())
-                 //.frame(width: 80, height: 75)
-                 }
-                 .contentShape(Circle())
-                 //.frame(width:90, height:90)
-                 }
-                 }
-                 .padding(.horizontal)*/
-                
-                HStack{
-                    
-                    Button(action: {
-                        print("1st Button tapped!")
-                    }) {
-                        Image(systemName: "play.fill") // Use an SF Symbol
-                        //Text("Sample Button")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 40, height: 40) // Set a specific size
-                            .padding(20) // Add padding around the image
-                            .foregroundColor(.white)
-                        //.background(Color.indigo) // Add a background color
-                            .clipShape(Circle()) // Clip the entire button to a circle
-                    }
-                    
-                    Button(action: {
-                        print("2nd Button tapped!")
-                    }) {
-                        Image(systemName: "play.fill") // Use an SF Symbol
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 40, height: 40) // Set a specific size
-                            .padding(20) // Add padding around the image
-                            .foregroundColor(.white)
-                        //.background(Color.blue) // Add a background color
-                            .clipShape(Circle()) // Clip the entire button to a circle
-                    }
-                    NavigationLink(destination: StressorLogView(), isActive: $isShowingStressorLog){
-                        
-                        Button(action: {
-                            isShowingStressorLog = true
-                            //print("3rd Button tapped!")
-                        }) {
-                            Image(systemName: "play.fill") // Use an SF Symbol
-                                .resizable()
-                                .scaledToFit()
-                                .frame(width: 40, height: 40) // Set a specific size
-                                .padding(20) // Add padding around the image
-                                .foregroundColor(.white)
-                            //.background(Color.blue) // Add a background color
-                                .clipShape(Circle()) // Clip the entire button to a circle
-                        }
-                        
-                    }
-                    
-                    Button(action: {
-                        print("4th Button tapped!")
-                    }) {
-                        Image(systemName: "play.fill") // Use an SF Symbol
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 40, height: 40) // Set a specific size
-                            .padding(20) // Add padding around the image
-                            .foregroundColor(.white)
-                        //.background(Color.blue) // Add a background color
-                            .clipShape(Circle()) // Clip the entire button to a circle
-                    }
-                    
-                    Button(action: {
-                        print("5th Button tapped!")
-                    }) {
-                        Image(systemName: "play.fill") // Use an SF Symbol
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 40, height: 40) // Set a specific size
-                            .padding(20) // Add padding around the image
-                            .foregroundColor(.white)
-                        //.background(Color.blue) // Add a background color
-                            .clipShape(Circle()) // Clip the entire button to a circle
-                    }
-                    
-                    
-                    
+            ScrollView {
+                VStack(alignment: .leading, spacing: 25) {
+                    headerSection
+                    sleepScheduleCard
+                    wellnessSpacesSection
+                    aiCompanionCard
+                    stressorsSection
                 }
-                
+                .padding(.bottom, 100) // Space for bottom nav
             }
-            .frame(height: 100) // Constrain the height of the scroll view
-            .background(Color(red: 242/255.0, green: 237/255.0, blue: 245/255.0))
-            .position(x:200, y:725)
             
-            
+            customBottomNavBar
         }
     }
     
+    // MARK: - Header
+    private var headerSection: some View {
+        HStack {
+            VStack(alignment: .leading) {
+                Text("Good Morning,")
+                    .font(.system(size: 18))
+                    .foregroundColor(.gray)
+                HStack(spacing: 5) {
+                    Text("Bulldog")
+                        .font(.system(size: 32, weight: .bold))
+                        .foregroundColor(Color(red: 0.1, green: 0.2, blue: 0.4))
+                    Text("🌙")
+                        .font(.title)
+                }
+            }
+            Spacer()
+            Image(systemName: "flower.fill")
+                .foregroundColor(.white)
+                .padding(12)
+                .background(Circle().fill(Color.pink.opacity(0.4)))
+        }
+        .padding(.horizontal)
+        .padding(.top, 20)
+    }
+    
+    // MARK: - Sleep Schedule
+    private var sleepScheduleCard: some View {
+        VStack(alignment: .leading, spacing: 15) {
+            Text("SLEEP SCHEDULE")
+                .font(.caption)
+                .tracking(1.5)
+                .foregroundColor(.gray)
+            
+            HStack {
+                VStack(alignment: .leading) {
+                    Text("10:30 PM")
+                        .font(.system(size: 28, weight: .semibold))
+                    Text("BEDTIME")
+                        .font(.caption2)
+                        .foregroundColor(.gray)
+                }
+                
+                Image(systemName: "arrow.right")
+                    .foregroundColor(.gray.opacity(0.5))
+                    .padding(.horizontal, 10)
+                
+                VStack(alignment: .leading) {
+                    Text("6:30 AM")
+                        .font(.system(size: 28, weight: .semibold))
+                    Text("WAKE UP")
+                        .font(.caption2)
+                        .foregroundColor(.gray)
+                }
+                Spacer()
+            }
+            
+            Label("8h target · on track", systemImage: "circle.fill")
+                .font(.system(size: 14, weight: .medium))
+                .foregroundColor(.green)
+                .padding(.horizontal, 12)
+                .padding(.vertical, 6)
+                .background(Capsule().fill(Color.green.opacity(0.1)))
+        }
+        .padding(25)
+        .background(RoundedRectangle(cornerRadius: 30).fill(Color.white))
+        .padding(.horizontal)
+    }
+    
+    // MARK: - Wellness Spaces
+    private var wellnessSpacesSection: some View {
+        VStack(alignment: .leading, spacing: 15) {
+            Text("WELLNESS SPACES")
+                .font(.caption)
+                .tracking(1.5)
+                .foregroundColor(.gray)
+                .padding(.horizontal)
+            
+            ScrollView(.horizontal, showsIndicators: false) {
+                HStack(spacing: 15) {
+                    WellnessButton(icon: "🌙", label: "Sleep", color: .blue)
+                    WellnessButton(icon: "🧘", label: "Breathe", color: .green)
+                    WellnessButton(icon: "🏃", label: "Exercise", color: .orange)
+                    WellnessButton(icon: "📓", label: "Journal", color: .purple)
+                    WellnessButton(icon: "🎵", label: "Sounds", color: .pink)
+                }
+                .padding(.horizontal)
+            }
+        }
+    }
+    
+    // MARK: - AI Companion
+    private var aiCompanionCard: some View {
+        VStack(alignment: .leading, spacing: 15) {
+            Text("AI COMPANION")
+                .font(.caption)
+                .tracking(1.5)
+                .foregroundColor(.gray)
+            
+            HStack(spacing: 15) {
+                Circle()
+                    .stroke(Color.purple.opacity(0.2), lineWidth: 4)
+                    .frame(width: 50, height: 50)
+                    .overlay(Image(systemName: "globe").foregroundColor(.blue))
+                
+                VStack(alignment: .leading) {
+                    Text("Chat with Luna")
+                        .font(.headline)
+                    Text("Your private wellness companion")
+                        .font(.subheadline)
+                        .foregroundColor(.gray)
+                }
+                Spacer()
+                HStack(spacing: 4) {
+                    Circle().fill(Color.green).frame(width: 6, height: 6)
+                    Text("Online").font(.caption).foregroundColor(.gray)
+                }
+            }
+            .padding()
+            .background(RoundedRectangle(cornerRadius: 20).fill(Color.white.opacity(0.6)))
+        }
+        .padding(.horizontal)
+    }
+
+    private var stressorsSection: some View {
+        Text("YOUR STRESSORS")
+            .font(.caption)
+            .tracking(1.5)
+            .foregroundColor(.gray)
+            .padding(.horizontal)
+    }
+    
+    // MARK: - Bottom Navigation
+    private var customBottomNavBar: some View {
+        HStack {
+            NavIcon(icon: "house.fill", label: "Home", isSelected: true)
+            Spacer()
+            NavIcon(icon: "cloud.moon.fill", label: "Calm")
+            Spacer()
+            NavIcon(icon: "bubbles.and.sparkles.fill", label: "Connect")
+            Spacer()
+            NavIcon(icon: "globe", label: "Luna")
+            Spacer()
+            NavIcon(icon: "flower.fill", label: "Me")
+        }
+        .padding(.horizontal, 30)
+        .padding(.top, 15)
+        .padding(.bottom, 30)
+        .background(Color.white)
+        .clipShape(RoundedRectangle(cornerRadius: 0)) // Standard bottom bar look
+    }
 }
 
+// MARK: - Helper Components
+struct WellnessButton: View {
+    let icon: String
+    let label: String
+    let color: Color
+    
+    var body: some View {
+        VStack {
+            ZStack {
+                Circle()
+                    .fill(color.opacity(0.1))
+                    .frame(width: 70, height: 70)
+                Text(icon).font(.largeTitle)
+            }
+            Text(label)
+                .font(.caption)
+                .foregroundColor(.gray)
+        }
+    }
+}
 
-struct MainView_Previews: PreviewProvider{
-    static var previews: some View{
-        MainView()
-        
+struct NavIcon: View {
+    let icon: String
+    let label: String
+    var isSelected: Bool = false
+    
+    var body: some View {
+        VStack(spacing: 4) {
+            Image(systemName: icon)
+                .font(.system(size: 20))
+                .foregroundColor(isSelected ? .purple : .gray.opacity(0.6))
+            Text(label)
+                .font(.caption2)
+                .foregroundColor(isSelected ? .black : .gray.opacity(0.6))
+        }
     }
 }
 
