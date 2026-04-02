@@ -1,10 +1,16 @@
+//
+//  MainView.swift
+//  HealthyCampus-Demo
+//
+//  Created by Admin on 2/10/26.
+//
 import SwiftUI
 
 struct MainView: View {
     // MARK: - PROPERTIES
     @AppStorage("isDarkMode") private var isDarkMode = false
     @State private var showSettings = false
-    @State private var selectedTab = 0 
+    @State private var selectedTab = 0
     @State private var showComingSoon = false
     @State private var featureName = ""
     
@@ -39,7 +45,7 @@ struct MainView: View {
                         } else if selectedTab == 1 {
                             CalmView()
                         } else if selectedTab == 2 {
-                            ConnectView()
+    
                         } else if selectedTab == 3 {
                             ChatView()
                         }
@@ -118,14 +124,14 @@ struct MainView: View {
         VStack(alignment: .leading, spacing: 15) {
             Text("SLEEP SCHEDULE").font(.caption.bold()).foregroundColor(.gray)
             HStack {
-                VStack(alignment: .leading) { 
+                VStack(alignment: .leading) {
                     Text("10:30 PM").font(.title2.bold()).foregroundColor(primaryTextColor)
-                    Text("BEDTIME").font(.caption2).foregroundColor(.gray) 
+                    Text("BEDTIME").font(.caption2).foregroundColor(.gray)
                 }
                 Spacer(); Image(systemName: "arrow.right").foregroundColor(.gray); Spacer()
-                VStack(alignment: .trailing) { 
+                VStack(alignment: .trailing) {
                     Text("6:30 AM").font(.title2.bold()).foregroundColor(primaryTextColor)
-                    Text("WAKE UP").font(.caption2).foregroundColor(.gray) 
+                    Text("WAKE UP").font(.caption2).foregroundColor(.gray)
                 }
             }
             Text("● 8h target - on track")
@@ -207,10 +213,10 @@ struct MainView: View {
     
     private var settingsSheet: some View {
         NavigationStack {
-            List { 
-                Section("Appearance") { 
-                    Toggle("Dark Mode", isOn: $isDarkMode) 
-                } 
+            List {
+                Section("Appearance") {
+                    Toggle("Dark Mode", isOn: $isDarkMode)
+                }
             }
             .navigationTitle("Settings")
             .toolbar { Button("Done") { showSettings = false } }
@@ -252,4 +258,6 @@ struct WellnessCircle: View {
 }
 
 // STUBS FOR MISSING VIEWS
-struct CalmView: View { var body: some View { Text("Calm Space 🌿")}}
+struct CalmView: View { var body: some View { Text("Calm Space 🌿")
+}
+}
